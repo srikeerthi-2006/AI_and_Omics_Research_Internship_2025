@@ -6,10 +6,7 @@ dir.create("results")
 dir.create("plots")
 
 #load data
-patient_data <- read.csv("raw_data/patient_info.csv")
-
-view(patient_data)
-str(patient_data)
+patient_data <- read.csv("")
 
 #converting to factors
 patient_data$gender<- factor(patient_data$gender)
