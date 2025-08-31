@@ -44,6 +44,15 @@ write.csv(raw_data1, file.path(output_dir, "Processed_DEGs_data_1.csv"), row.nam
 write.csv(raw_data2, file.path(output_dir, "Processed_DEGs_data_2.csv"), row.names = FALSE)
 cat("Processed CSV files saved to Results folder.\n")
 
-# Save all required objects to .RData file for submission
+# Save all required objects 
 save(raw_data1, raw_data2, classify_gene, file = "yourname_Class_2_Assignment.RData")
 cat("RData file 'yourname_Class_2_Assignment.RData' created.\n")
+
+# Save the cleaned data as CSV
+
+write.csv(raw_data1, "Cleaned_DEGs_Data.csv", row.names = FALSE)
+getwd()
+shell.exec("Cleaned_DEGs_Data.csv")
+write.csv(raw_data2, "Cleaned_DEGs_Data.csv", row.names = FALSE)
+getwd()
+shell.exec("Cleaned_DEGs_Data.csv")
