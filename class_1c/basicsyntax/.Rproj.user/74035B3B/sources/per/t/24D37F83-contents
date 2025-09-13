@@ -1,0 +1,2 @@
+print(input.dir)
+print(files_to_process)
