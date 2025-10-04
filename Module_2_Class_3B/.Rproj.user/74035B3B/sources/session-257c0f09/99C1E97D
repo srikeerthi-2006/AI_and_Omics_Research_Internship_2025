@@ -1,0 +1,28 @@
+{
+    "id": "99C1E97D",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1759573654594.0,
+    "source_on_save": false,
+    "relative_order": 4,
+    "properties": {
+        "id": "66c78f12c710485f9c081dd117fbc991",
+        "name": "gse_data",
+        "title": "gse_data",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 14636990851317812,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1759573654594,
+    "read_only": false,
+    "read_only_alternatives": []
+}

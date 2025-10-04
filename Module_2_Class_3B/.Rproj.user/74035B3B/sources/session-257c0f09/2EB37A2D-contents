@@ -1,0 +1,113 @@
+# =====================================================================
+#               AI and Biotechnology / Bioinformatics
+# =====================================================================
+
+# ---------------------------------------------------------------------
+#              AI and Omics Research Internship (2025)
+# ---------------------------------------------------------------------
+#             Module II: Introduction to Genomics Data Analysis
+# ---------------------------------------------------------------------
+#                     Microarray Data Analysis
+# =====================================================================
+
+##install bioconductor package
+
+# =====================================================================
+#               AI and Biotechnology / Bioinformatics
+# =====================================================================
+
+# ---------------------------------------------------------------------
+#              AI and Omics Research Internship (2025)
+# ---------------------------------------------------------------------
+#             Module II: Introduction to Genomics Data Analysis
+# ---------------------------------------------------------------------
+#                     Microarray Data Analysis
+# =====================================================================
+
+
+#install required packages
+if (!requireNamespace("BiocManager",quietly = TRUE))
+  install.packages("BiocManager")
+
+#bioconductor packages
+BiocManager::install(c("GEOquery","affy","limma","arrayQualityMetrics",
+                       "AnnotationDbi","hgu133plus2.db"))
+#CRAN packages
+install.packages("dplyr")
+
+#load required libraries
+library(GEOquery)   #download GEO datasets (series,matrix,raw CEL files)
+library(affy)       #pre-processing of affymetrix microarray data
+library(arrayQualityMetrics)    #Quality of microarray data
+library(limma)
+library(AnnotationDbi)          #interface for annotation databases
+library(hgu133plus2.db)         #annotation for affymetrix human genome u133 plus 2.0 array
+library(dplyr)                  #data manipulation
+
+
+#DOWNLOSAD SERIES MATRIX FILES
+
+gse_data <- getGEO("GSE285348",GSEMatrix = TRUE)
+
+#extract expression data
+expression_data <- exprs(gse_data$GSE285348_series_matrix.txt.gz)
+
+#extract feaure data
+feature_data <- fData(gse_data$GSE285348_series_matrix.txt.gz)
+
+#extract phenotype data
+phenotype_data <- pData(gse_data$GSE285348_series_matrix.txt.gz)
+
+sum(is.na(phenotype_data$source_name_ch1))
+
+
+################################################################################
+#             downloading raw data(CEL files)
+################################################################################
+
+getGEOSuppFiles("GSE285348", baseDir = "Raw_Data", makeDirectory = TRUE)
+
+list.files(recursive = TRUE)
+
+# Create the directories
+dir.create("Raw_Data/CEL_files", recursive = TRUE, showWarnings = FALSE)
+list.files(pattern = "GSE285348", recursive = TRUE)
+
+# First move the file
+file.rename("GSE285348_RAW.tar", "Raw_Data/GSE285348_RAW.tar")
+
+# untar CEL files
+untar("Raw_Data/GSE285348_RAW.tar", exdir = "Raw_Data/CEL_files")
+
+#read CEL files
+raw_data <- ReadAffy(celfile.path = "Raw_Data/CEL_files")
+raw_data
+
+###############################################################################
+#############QC before Pre-processing
+###############################################################################
+
+# ---------------------------------------------------
+#### Quality Control (QC) Before Pre-processing ####
+# ---------------------------------------------------
+# ---------------------------------------------------
+#### Quality Control (QC) Before Pre-processing ####
+# ---------------------------------------------------
+
+# SKIP ReadAffy() - it causes annotation errors
+# INSTEAD: Use justRMA() which bypasses annotation requirements
+
+# Normalize directly from CEL files (bypasses annotation issue)
+normalized_data <- justRMA(celfile.path = "Raw_Data/CEL_Files")
+
+# Basic QC plots on NORMALIZED data (these will work)
+boxplot(normalized_data, main = "Normalized Data - Intensity Distribution", col = "lightblue")
+hist(normalized_data, main = "Normalized Data - Density Plot")
+
+# For MA plots, use a few samples
+MAplot(normalized_data[,1:2], main = "MA Plot - Sample 1 vs Sample 2")
+
+# Simple metrics
+print(paste("Number of samples:", ncol(normalized_data)))
+print(paste("Number of probes:", nrow(exprs(normalized_data))))
+
