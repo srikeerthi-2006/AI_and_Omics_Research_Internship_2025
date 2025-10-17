@@ -1,0 +1,28 @@
+# =====================================================================
+#               AI and Biotechnology / Bioinformatics
+# =====================================================================
+
+# ---------------------------------------------------------------------
+#              AI and Omics Research Internship (2025)
+# ---------------------------------------------------------------------
+#             Module II: Introduction to Genomics Data Analysis
+# ---------------------------------------------------------------------
+#                     Microarray Data Analysis
+# =====================================================================
+
+# Install core Bioconductor packages for microarray analysis
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(c("limma", "AnnotationDbi", "hgu133plus2.db"))
+
+# Install supporting CRAN packages for data handling and visualization
+install.packages(c("dplyr", "tibble", "ggplot2", "pheatmap"))
+
+# Load all libraries
+library(limma)
+library(AnnotationDbi)
+library(hgu133plus2.db)
+library(dplyr)
+library(tibble)
+library(ggplot2)
+library(pheatmap)
